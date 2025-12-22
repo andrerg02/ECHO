@@ -1,0 +1,24 @@
+[project]
+name = "graph-transfer-gpp"
+version = "0.1.0"
+description = "Can You Hear Me Now? A new benchmark for long-range graph propagation"
+readme = "README.md"
+requires-python = "==3.11.13"
+dependencies = [
+    "lightning>=2.5.5",
+    "matplotlib>=3.10.7",
+    "numpy>=2.3.3",
+    "opt-einsum>=3.4.0",
+    "optuna>=4.5.0",
+    "pandas>=2.3.3",
+    "pyarrow>=22.0.0",
+    "ray>=2.50.1",
+    "torch-geometric>=2.7.0",
+    "torch-scatter>=2.1.2",
+    "torch-sparse>=0.6.18",
+    "torch==2.7.0",
+    "torchdyn>=1.0.6",
+    "tqdm>=4.66.5",
+    "wandb>=0.22.2",
+    "yacs>=0.1.8",
+]
