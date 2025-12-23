@@ -1,4 +1,4 @@
-<h1 align="center">Can You Hear Me Now?: A Benchmark for Long-Range Graph Propagation</h1>
+<h1 align="center">Can You Hear Me Now? A Benchmark for Long-Range Graph Propagation</h1>
 <p align="center">
     <a href="https://arxiv.org/abs/2512.17762">
         <img src="https://img.shields.io/badge/arXiv-2512.17762-b31b1b.svg" alt="arXiv">
