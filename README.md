@@ -1,12 +1,15 @@
-<h1 align="center">Can You Hear Me Now? A Benchmark for Long-Range Graph Propagation</h1>
-<p align="center">
-    <a href="https://arxiv.org/abs/2512.17762">
-        <img src="https://img.shields.io/badge/arXiv-2512.17762-b31b1b.svg" alt="arXiv">
-    </a>
-    <a href="https://huggingface.co/datasets/lucamiglior/echo-benchmark">
-        <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Datasets-blue" alt="Hugging Face Datasets">
-    </a>
-</p>
+<div align="center">
+
+# Can You Hear Me Now? A Benchmark for Long-Range Graph Propagation
+
+[![Paper](https://img.shields.io/badge/Paper-OpenReview-red.svg)](https://openreview.net/forum?id=DgkWFPZMPp)
+[![Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Datasets-blue.svg)](https://huggingface.co/datasets/lucamiglior/echo-benchmark)
+
+*Published at the International Conference on Learning Representations (ICLR) 2026*
+
+</div>
+
+
 
 ## Overview
 
@@ -201,11 +204,12 @@ bash scripts/run_search.sh
 If you use ECHO in your research, please cite our paper:
 
 ```bibtex
-@article{echo2025benchmark,
-    title={Can You Hear Me Now? A Benchmark for Long-Range Graph Propagation}, 
+@article{echobenchmark,
+    title={{Can You Hear Me Now? A Benchmark for Long-Range Graph Propagation}}, 
     author={Luca Miglior and Matteo Tolloso and Alessio Gravina and Davide Bacciu},
-    year={2025},
-    journal={arXiv preprint arXiv:2512.17762}
+    booktitle={The Fourteenth International Conference on Learning Representations},
+    year={2026},
+    url={https://openreview.net/forum?id=DgkWFPZMPp}
 }
 ```
 
