@@ -12,22 +12,6 @@ from yacs.config import CfgNode as CN # only for grit transformer config.
 
 
 
-class BaselineMLP(Module):
-    def __init__(self, in_features, out_features):
-        super().__init__()
-        self.fc1 = Linear(in_features, in_features*2)
-        self.bn1 = torch.nn.BatchNorm1d(in_features*2)
-        self.fc2 = Linear(in_features*2, out_features)
-
-    def forward(self, data, *args, **kwargs):
-        x, edge_index, batch = data.x, data.edge_index, data.batch
-        x = self.fc1(x)
-        x = self.bn1(x)
-        x = tanh(x)
-        x = self.fc2(x)
-        return x
-        
-
 class GNN(Module):
     def __init__(
         self,
@@ -137,13 +121,15 @@ class GNN(Module):
         self.node_level_task = node_level_task
         if self.node_level_task:
             self.readout = Sequential(
-                Linear(self.hidden_dim, self.output_dim),
+                Linear(self.hidden_dim, self.hidden_dim // 2),
                 LeakyReLU(),
+                Linear(self.hidden_dim // 2, self.output_dim)
             )
         else:
             self.readout = Sequential(
-                Linear(self.hidden_dim* 3, self.output_dim),
+                Linear(self.hidden_dim * 3, (self.hidden_dim * 3) // 2),
                 LeakyReLU(),
+                Linear((self.hidden_dim * 3) // 2, self.output_dim)
             )
 
     def forward(self, data: Data) -> torch.Tensor:

@@ -195,15 +195,13 @@ class ADGN(Module):
             self.readout = Sequential(
                 Linear(self.hidden_dim, self.hidden_dim // 2),
                 LeakyReLU(),
-                Linear(self.hidden_dim // 2, self.output_dim),
-                LeakyReLU()
+                Linear(self.hidden_dim // 2, self.output_dim)
             )
         else:
             self.readout = Sequential(
                 Linear(self.hidden_dim * 3, (self.hidden_dim * 3) // 2),
                 LeakyReLU(),
-                Linear((self.hidden_dim * 3) // 2, self.output_dim),
-                LeakyReLU()
+                Linear((self.hidden_dim * 3) // 2, self.output_dim)
             )
 
     def forward(self, data: Data) -> torch.Tensor:

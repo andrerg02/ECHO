@@ -38,7 +38,6 @@ def constant_features_transform(data: Data, value: torch.float) -> Data: #type: 
 ConstantFeatTransform = lambda value: lambda data: constant_features_transform(data, value)
 
 class ECHO_Dataset(InMemoryDataset):
-    # url = 'https://github.com/gravins/Anti-SymmetricDGN/raw/refs/heads/main/graph_prop_pred/data.tar.gz'
 
     def __init__(self, root, name, split='train', pre_transform=None, transform=None, dataset_path=None, max_ecc=None, max_diam=None, max_sssp=None, max_charge=None, k=None, constant_feature=None, **kwargs):
         """"

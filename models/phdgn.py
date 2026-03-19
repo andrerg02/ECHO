@@ -93,15 +93,13 @@ class PHDGN(Module):
             self.readout = Sequential(
                 Linear(self.nhid, self.nhid // 2),
                 LeakyReLU(),
-                Linear(self.nhid // 2, self.output_dim),
-                LeakyReLU()
+                Linear(self.nhid // 2, self.output_dim)
             )
         else:
             self.readout = Sequential(
                 Linear(self.nhid * 3, (self.nhid * 3) // 2),
                 LeakyReLU(),
-                Linear((self.nhid * 3) // 2, self.output_dim),
-                LeakyReLU()
+                Linear((self.nhid * 3) // 2, self.output_dim)
             )
        
 
