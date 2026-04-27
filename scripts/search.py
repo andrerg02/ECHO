@@ -12,8 +12,8 @@ import argparse
 from pathlib import Path
 
 
-PROJECT_NAME = "your_wandb_project"  # replace with your wandb project name
-ENTITY_NAME = "your_wandb_entity"  # replace with your wandb entity name
+PROJECT_NAME = "flatnsd_sage_charge_256"  # replace with your wandb project name
+ENTITY_NAME = "andrerg00"  # replace with your wandb entity name
 SEEDS = [43]
 
 
@@ -23,7 +23,7 @@ def create_data_loaders(task, config):
     from utils import get_dataset, KHopTransform
     from torch_geometric.loader import DataLoader
     
-    batch_size = 256 if config.get("conv_layer") == "GPSConv" or config.get("conv_layer") == 'GRIT' else 512
+    batch_size = 256#256 if config.get("conv_layer") == "GPSConv" or config.get("conv_layer") == 'GRIT' else 512
     
     pre_transform = None
     if config.get("gnn_type") == "DRew_GCN":

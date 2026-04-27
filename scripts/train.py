@@ -17,6 +17,8 @@ parser.add_argument("--weight_decay", type=float, help="Weight decay for the opt
 parser.add_argument("--batch_size", type=int, default=256, help="Batch size for the DataLoader")
 parser.add_argument("--gnn_type", type=str)
 
+parser.add_argument("--stalk_dimension", type=int, help="Stalk dimension for the FlatNSD model")
+
 # adgn, swan specific params
 parser.add_argument("--epsilon", type=float, default=0.1, help="Epsilon for the ADGN model")
 parser.add_argument("--gamma", type=float, default=0.1, help="Gamma for the ADGN model")
@@ -153,7 +155,7 @@ def train(seed, config):
 if __name__ == "__main__":
     args = parser.parse_args()
     metrics = train(
-        seed=1,
+        seed=43,
         config=args,
     )
 

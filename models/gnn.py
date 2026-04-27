@@ -10,7 +10,7 @@ from .grit_layer import GritTransformerLayer
 
 from yacs.config import CfgNode as CN # only for grit transformer config.
 
-
+from models.flat_nsd import FlatBundleConv
 
 class GNN(Module):
     def __init__(
@@ -25,6 +25,9 @@ class GNN(Module):
         activ_fun: str = "tanh",
         dropout_prob: float = 0.0,
         edge_dim: Optional[int] = None,
+        stalk_dimension: Optional[int] = None,
+        epsilon: Optional[float] = 0.1,
+        gamma: Optional[float] = 0.1,
         **kwargs
     ) -> None:
 
@@ -37,19 +40,22 @@ class GNN(Module):
         self.alpha = alpha
         self.dropout = torch.nn.Dropout(p=dropout_prob)
         self.edge_dim = edge_dim
+
+        self.d = stalk_dimension if stalk_dimension is not None else 1
+
         try:
             self.activation = getattr(torch, activ_fun)
         except:  
             self.activation = getattr(torch, "relu")
             print(f"Activation function {activ_fun} not found. Using default")
         
-        self.emb = Linear(self.input_dim, self.hidden_dim)
+        self.emb = Linear(self.input_dim, self.hidden_dim if conv_layer != "FlatNSD" else self.hidden_dim * self.d)
         
         self.edge_emb = None
         if conv_layer == 'GRIT' and self.edge_dim is not None:
             self.edge_emb = Linear(self.edge_dim, self.hidden_dim)
 
-        self.conv_layer = getattr(pyg_nn, conv_layer) if conv_layer != 'GRIT' else GritTransformerLayer
+        self.conv_layer = getattr(pyg_nn, conv_layer) if conv_layer not in ['GRIT', 'FlatNSD'] else GritTransformerLayer
         self.conv_name = conv_layer
         self.conv = ModuleList()
 
@@ -113,6 +119,17 @@ class GNN(Module):
                     act=grit_act,
                     cfg=cfg
                 ))
+            elif conv_layer == "FlatNSD":
+                self.conv.append(FlatBundleConv(in_channels=self.hidden_dim,
+                                  out_channels=self.hidden_dim,
+                                  stalk_dimension=self.d,
+                                  dropout=dropout_prob,
+                                  linear_emb=True,
+                                  gnn_type='SAGE',
+                                  gnn_layers=1,
+                                  gnn_hidden=self.hidden_dim,
+                                  epsilon=epsilon,
+                                  gamma=gamma))
             else:
                 self.conv.append(self.conv_layer(in_channels=self.hidden_dim, 
                                                  out_channels=self.hidden_dim)) #type: ignore
@@ -121,13 +138,13 @@ class GNN(Module):
         self.node_level_task = node_level_task
         if self.node_level_task:
             self.readout = Sequential(
-                Linear(self.hidden_dim, self.hidden_dim // 2),
+                Linear(self.hidden_dim if conv_layer != "FlatNSD" else self.hidden_dim * self.d, self.hidden_dim // 2),
                 LeakyReLU(),
                 Linear(self.hidden_dim // 2, self.output_dim)
             )
         else:
             self.readout = Sequential(
-                Linear(self.hidden_dim * 3, (self.hidden_dim * 3) // 2),
+                Linear(self.hidden_dim * 3 if conv_layer != "FlatNSD" else self.hidden_dim * 3 * self.d, (self.hidden_dim * 3) // 2),
                 LeakyReLU(),
                 Linear((self.hidden_dim * 3) // 2, self.output_dim)
             )
