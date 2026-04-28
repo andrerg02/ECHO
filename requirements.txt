@@ -1,16 +1,22 @@
-wandb
-tqdm
-matplotlib
-lightning
-torchdyn
-ray
-
 --extra-index-url https://download.pytorch.org/whl/cu124
-torch==2.6.*
+torch==2.7.0
 
--f https://data.pyg.org/whl/torch-2.6.0+cu124.html
-torch_geometric
-torch_scatter
-torch_sparse
+-f https://data.pyg.org/whl/torch-2.7.0+cu124.html
+torch-geometric>=2.7.0
+torch-scatter>=2.1.2
+torch-sparse>=0.6.18
+
+lightning>=2.5.5
+matplotlib>=3.10.7
+numpy>=2.3.3
+opt-einsum>=3.4.0
+optuna>=4.5.0
+pandas>=2.3.3
+pyarrow>=22.0.0
+ray>=2.50.1
+torchdyn>=1.0.6
+tqdm>=4.66.5
+wandb>=0.22.2
+yacs>=0.1.8
 torch_householder
 scikit-learn
