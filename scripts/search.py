@@ -12,7 +12,7 @@ import argparse
 from pathlib import Path
 
 
-PROJECT_NAME = "flatnsd_sage_charge_256"  # replace with your wandb project name
+PROJECT_NAME = "flatnsd_sage_diam_256"  # replace with your wandb project name
 ENTITY_NAME = "andrerg00"  # replace with your wandb entity name
 SEEDS = [43]
 

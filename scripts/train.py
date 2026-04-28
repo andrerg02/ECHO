@@ -17,7 +17,10 @@ parser.add_argument("--weight_decay", type=float, help="Weight decay for the opt
 parser.add_argument("--batch_size", type=int, default=256, help="Batch size for the DataLoader")
 parser.add_argument("--gnn_type", type=str)
 
+# sheaf specific parameters
 parser.add_argument("--stalk_dimension", type=int, help="Stalk dimension for the FlatNSD model")
+parser.add_argument("--backbone_hidden", type=int, help="Hidden dimension for the backbone GNN in the FlatNSD model")
+parser.add_argument("--backbone_layers", type=int, help="Number of layers in the backbone GNN in the FlatNSD model")
 
 # adgn, swan specific params
 parser.add_argument("--epsilon", type=float, default=0.1, help="Epsilon for the ADGN model")

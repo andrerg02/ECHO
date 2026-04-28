@@ -28,6 +28,8 @@ class GNN(Module):
         stalk_dimension: Optional[int] = None,
         epsilon: Optional[float] = 0.1,
         gamma: Optional[float] = 0.1,
+        backbone_hidden: Optional[int] = None,
+        backbone_layers: Optional[int] = None,
         **kwargs
     ) -> None:
 
@@ -40,6 +42,16 @@ class GNN(Module):
         self.alpha = alpha
         self.dropout = torch.nn.Dropout(p=dropout_prob)
         self.edge_dim = edge_dim
+
+        if backbone_hidden is None:
+            self.backbone_hidden = hidden_dim
+        else:
+            self.backbone_hidden = backbone_hidden
+        
+        if backbone_layers is None:
+            self.backbone_layers = 1
+        else:
+            self.backbone_layers = backbone_layers
 
         self.d = stalk_dimension if stalk_dimension is not None else 1
 
@@ -126,8 +138,8 @@ class GNN(Module):
                                   dropout=dropout_prob,
                                   linear_emb=True,
                                   gnn_type='SAGE',
-                                  gnn_layers=1,
-                                  gnn_hidden=self.hidden_dim,
+                                  gnn_layers=self.backbone_layers,
+                                  gnn_hidden=self.backbone_hidden,
                                   epsilon=epsilon,
                                   gamma=gamma))
             else:

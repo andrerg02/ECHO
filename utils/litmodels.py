@@ -67,7 +67,7 @@ class LitGraphNN(L.LightningModule):
             self.model.parameters(), lr=lr, weight_decay=weight_decay
         )
         self.scaling_factor = scaling_factor
-
+        
         # save hyperparameters
         self.save_hyperparameters()
 
